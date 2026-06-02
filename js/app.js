@@ -210,7 +210,7 @@ const sortedCodes = Object.keys(WMO).map(Number).sort((a, b) => a - b);
 dbgPanel.innerHTML = `
   <style>
     #dbgPanel {
-      position:fixed; bottom:16px; right:16px; z-index:100;
+      position:fixed; bottom:60px; left:10px; z-index:100;
       background:rgba(0,0,0,0.8); backdrop-filter:blur(8px);
       color:#fff; padding:14px 16px; border-radius:12px;
       font:13px system-ui,sans-serif; width:240px;
