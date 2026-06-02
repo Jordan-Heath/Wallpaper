@@ -31,18 +31,15 @@ function update(W, H) {
 function draw() {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const a = Math.min(0.6 + intensity * 0.35, 1);
-  ctx.strokeStyle = `rgba(70,140,255,${a})`;
-  ctx.lineWidth = 2.5 + intensity * 2;
-  ctx.lineCap = 'round';
+  ctx.strokeStyle = 'rgb(70,140,255)';
+  ctx.lineWidth = 1 + intensity * 0.5;
+  ctx.lineCap = 'butt';
   for (const d of drops) {
-    ctx.globalAlpha = d.opacity * Math.min(intensity * 1.8, 1);
     ctx.beginPath();
     ctx.moveTo(d.x, d.y);
-    ctx.lineTo(d.x - 3 - intensity * 2, d.y - d.len);
+    ctx.lineTo(d.x + 3 + intensity * 2, d.y - d.len);
     ctx.stroke();
   }
-  ctx.globalAlpha = 1;
 }
 
 function loop() {

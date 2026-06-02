@@ -5,6 +5,7 @@ import { fetchWeather } from './weather.js';
 import { initClouds, spawnClouds, startClouds, stopClouds } from './clouds.js';
 import { initMountains, updateSeason, startMountains, stopMountains } from './mountains.js';
 import { initDebug } from './debug.js';
+import { initParticles, setParticleSeason, startParticles, stopParticles } from './particles.js';
 
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
@@ -12,8 +13,10 @@ const ctx = canvas.getContext('2d');
 initRain(document.getElementById('rain'));
 initClouds(document.getElementById('scene'));
 initMountains(['mountains1', 'mountains2', 'hills1', 'hills2']);
+initParticles(document.getElementById('scene'));
 
-let lastIntensity = 0;
+let lastCloudCover = -1;
+let lastRainIntensity = 0;
 let lastRenderTime = 0;
 const RENDER_INTERVAL = 1000;
 let W, H;
@@ -26,7 +29,7 @@ function resize() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
   resizeRain();
-  lastIntensity = -1;
+  lastCloudCover = -1;
   renderScene();
 }
 window.addEventListener('resize', resize);
@@ -85,15 +88,17 @@ function renderScene() {
   if (season !== currentSeason) {
     currentSeason = season;
     updateSeason(season);
+    setParticleSeason(season);
   }
 
-  const intensity = weatherData ? weatherData.intensity : 0;
-  if (intensity !== lastIntensity) {
-    lastIntensity = intensity;
-    spawnClouds(intensity);
+  const cloudCover = weatherData ? weatherData.cloudCover : 0;
+  const rainIntensity = weatherData ? weatherData.rainIntensity : 0;
+  if (cloudCover !== lastCloudCover) {
+    lastCloudCover = cloudCover;
+    spawnClouds(cloudCover);
   }
 
-  const cover = intensity * 0.55;
+  const cover = cloudCover * 0.55;
   const c = Math.round(60 + cover * 40);
   weatherOverlay.style.background = `rgba(${c},${Math.round(c * 0.85)},${Math.round(c * 0.9)},${cover})`;
   lastRenderTime = performance.now();
@@ -103,7 +108,7 @@ function pollWeather() {
   fetchWeather(location_.lat, location_.lng).then(data => {
     if (!data) showError('Could not fetch weather data');
     weatherData = data;
-    setRainIntensity(data ? data.intensity : 0);
+    setRainIntensity(data ? data.rainIntensity : 0);
     renderScene();
   });
 }
@@ -134,6 +139,7 @@ requestAnimationFrame(mainLoop);
 spawnClouds(0);
 startClouds();
 startMountains();
+startParticles();
 
 function resumeWeatherPolling() {
   seasonOverride = null;
@@ -146,7 +152,7 @@ initDebug({
   getWeather: () => weatherData,
   applyWeather(data) {
     weatherData = data;
-    setRainIntensity(data.intensity);
+    setRainIntensity(data.rainIntensity);
     renderScene();
   },
   getSeasonOverride: () => seasonOverride,

@@ -36,9 +36,13 @@ export function initDebug({
       #dbgReset:hover { background:#ffc06b; }
     </style>
     <h3>Weather Debug <span style="font-weight:400;font-size:11px;color:#999">[D]</span></h3>
-    <label>Intensity <span style="display:flex;align-items:center;gap:4px;width:110px">
-      <input type="range" id="dbgIntensity" min="0" max="1" step="0.05" value="0">
-      <span class="dbg-val" id="dbgIntVal">0.00</span>
+    <label>Cloud Cover <span style="display:flex;align-items:center;gap:4px;width:110px">
+      <input type="range" id="dbgCloudCover" min="0" max="1" step="0.05" value="0">
+      <span class="dbg-val" id="dbgCCVal">0.00</span>
+    </span></label>
+    <label>Rain Intensity <span style="display:flex;align-items:center;gap:4px;width:110px">
+      <input type="range" id="dbgRainIntensity" min="0" max="1" step="0.05" value="0">
+      <span class="dbg-val" id="dbgRainVal">0.00</span>
     </span></label>
     <label>Temp &deg;C <input type="number" id="dbgTemp" value="15"></label>
     <label>Code <select id="dbgCode">${sortedCodes.map(c => `<option value="${c}">${c} \u2014 ${WMO[c]}</option>`).join('')}</select></label>
@@ -53,8 +57,10 @@ export function initDebug({
   `;
   document.body.appendChild(panel);
 
-  const dbgIntensity = document.getElementById('dbgIntensity');
-  const dbgIntVal = document.getElementById('dbgIntVal');
+  const dbgCloudCover = document.getElementById('dbgCloudCover');
+  const dbgCCVal = document.getElementById('dbgCCVal');
+  const dbgRainIntensity = document.getElementById('dbgRainIntensity');
+  const dbgRainVal = document.getElementById('dbgRainVal');
   const dbgTemp = document.getElementById('dbgTemp');
   const dbgCode = document.getElementById('dbgCode');
   const dbgSeason = document.getElementById('dbgSeason');
@@ -65,14 +71,19 @@ export function initDebug({
   function apply() {
     setSeasonOverride(dbgSeason.value || null);
     applyWeather({
-      intensity: parseFloat(dbgIntensity.value),
+      cloudCover: parseFloat(dbgCloudCover.value),
+      rainIntensity: parseFloat(dbgRainIntensity.value),
       temperature: parseFloat(dbgTemp.value),
       weatherCode: parseInt(dbgCode.value),
     });
   }
 
-  dbgIntensity.addEventListener('input', () => {
-    dbgIntVal.textContent = parseFloat(dbgIntensity.value).toFixed(2);
+  dbgCloudCover.addEventListener('input', () => {
+    dbgCCVal.textContent = parseFloat(dbgCloudCover.value).toFixed(2);
+    apply();
+  });
+  dbgRainIntensity.addEventListener('input', () => {
+    dbgRainVal.textContent = parseFloat(dbgRainIntensity.value).toFixed(2);
     apply();
   });
   dbgTemp.addEventListener('input', apply);
@@ -87,9 +98,11 @@ export function initDebug({
     active = !active;
     if (active) {
       onEnter();
-      const w = getWeather() || { intensity: 0, temperature: 15, weatherCode: 0 };
-      dbgIntensity.value = w.intensity;
-      dbgIntVal.textContent = w.intensity.toFixed(2);
+      const w = getWeather() || { cloudCover: 0, rainIntensity: 0, temperature: 15, weatherCode: 0 };
+      dbgCloudCover.value = w.cloudCover;
+      dbgCCVal.textContent = w.cloudCover.toFixed(2);
+      dbgRainIntensity.value = w.rainIntensity;
+      dbgRainVal.textContent = w.rainIntensity.toFixed(2);
       dbgTemp.value = w.temperature;
       dbgCode.value = w.weatherCode;
       dbgSeason.value = getSeasonOverride() || '';
