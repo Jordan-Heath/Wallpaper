@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120">
+  <defs>
+    <clipPath id="cloudClip">
+      <ellipse cx="100" cy="68" rx="60" ry="42"/>
+      <ellipse cx="62" cy="75" rx="35" ry="25"/>
+      <ellipse cx="142" cy="78" rx="32" ry="22"/>
+      <rect x="25" y="78" width="150" height="18" rx="9"/>
+    </clipPath>
+  </defs>
+
+  <!-- Cloud -->
+  <ellipse cx="100" cy="68" rx="60" ry="42" fill="#ccc"/>
+  <ellipse cx="62" cy="75" rx="35" ry="25" fill="#ccc"/>
+  <ellipse cx="142" cy="78" rx="32" ry="22" fill="#ccc"/>
+  <rect x="25" y="78" width="150" height="18" rx="9" fill="#ccc"/>
+
+  <!-- Highlight clipped to cloud -->
+  <g clip-path="url(#cloudClip)">
+    <ellipse cx="85" cy="30" rx="90" ry="60" fill="#fff" opacity="0.4"/>
+  </g>
+</svg>
