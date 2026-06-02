@@ -1,9 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <clipPath id="mountainClip">
+      <polygon points="0,300 200,140 380,260 560,120 760,280 960,150 1200,300 1400,160 1580,280 1760,130 1960,270 2160,150 2400,300 2400,500 0,500"/>
+    </clipPath>
+  </defs>
   <polygon points="0,300 200,140 380,260 560,120 760,280 960,150 1200,300 1400,160 1580,280 1760,130 1960,270 2160,150 2400,300 2400,500 0,500" fill="#6a7a9a" opacity="0.85"/>
-  <polygon points="200,140 250,172 160,172" fill="#e8ecff" opacity="0.7"/>
-  <polygon points="560,120 600,152 520,152" fill="#e8ecff" opacity="0.7"/>
-  <polygon points="960,150 1010,182 910,182" fill="#e8ecff" opacity="0.7"/>
-  <polygon points="1400,160 1450,192 1355,192" fill="#e8ecff" opacity="0.7"/>
-  <polygon points="1760,130 1810,162 1720,162" fill="#e8ecff" opacity="0.7"/>
-  <polygon points="2160,150 2210,182 2110,182" fill="#e8ecff" opacity="0.7"/>
+  <g clip-path="url(#mountainClip)">
+    <ellipse cx="200" cy="140" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+    <ellipse cx="560" cy="120" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+    <ellipse cx="960" cy="150" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+    <ellipse cx="1400" cy="160" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+    <ellipse cx="1760" cy="130" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+    <ellipse cx="2160" cy="150" rx="90" ry="42" fill="#e8ecff" opacity="0.8"/>
+  </g>
 </svg>
