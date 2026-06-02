@@ -1,3 +1,7 @@
+import { CONFIG } from './config.js';
+
+const cCfg = CONFIG.clouds;
+
 let container = null;
 let clouds = [];
 let rafId = null;
@@ -5,32 +9,32 @@ let running = false;
 
 function createCloud(intensity) {
   const variant = Math.floor(Math.random() * 3) + 1;
-  const scale = 1 + Math.random() * 0.7;
+  const scale = cCfg.scaleMin + Math.random() * cCfg.scaleRange;
   const el = document.createElement('div');
-  el.innerHTML = `<img src="images/cloud${variant}.svg" style="width:${200 * scale}px">`;
-  const bright = 100 - intensity * 40;
+  el.innerHTML = `<img src="images/cloud${variant}.svg" style="width:${cCfg.baseWidth * scale}px">`;
+  const bright = 100 - intensity * cCfg.brightnessDrop;
   el.style.cssText = `
     position:absolute;
-    left:${Math.random() * (window.innerWidth + 400) - 200}px;
-    top:${Math.random() * window.innerHeight * 0.35 - 40}px;
-    opacity:${0.5 + intensity * 0.45};
+    left:${Math.random() * (window.innerWidth + cCfg.initialXSpread) + cCfg.initialXOffset}px;
+    top:${Math.random() * window.innerHeight * cCfg.yLimit + cCfg.yOffset}px;
+    opacity:${cCfg.opacityBase + intensity * cCfg.opacityIntensityFactor};
     filter:brightness(${bright}%);
     will-change:transform;
   `;
   container.appendChild(el);
-  return { el, speed: 0.15 + Math.random() * 0.45, x: parseFloat(el.style.left) };
+  return { el, speed: cCfg.speedMin + Math.random() * cCfg.speedRange, x: parseFloat(el.style.left) };
 }
 
 export function initClouds(sceneEl) {
   container = document.createElement('div');
-  container.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden;';
+  container.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:${cCfg.zIndex};overflow:hidden;`;
   sceneEl.appendChild(container);
 }
 
 export function spawnClouds(intensity) {
   for (const c of clouds) c.el.remove();
   clouds = [];
-  const count = Math.max(2, Math.min(Math.floor(window.innerWidth), Math.floor(intensity * 100)));
+  const count = Math.max(cCfg.minCount, Math.min(Math.floor(window.innerWidth), Math.floor(intensity * cCfg.countPerIntensity)));
   for (let i = 0; i < count; i++) {
     clouds.push(createCloud(intensity));
   }
@@ -39,9 +43,9 @@ export function spawnClouds(intensity) {
 function animate() {
   for (const c of clouds) {
     c.x -= c.speed;
-    if (c.x < -250) {
-      c.x = window.innerWidth + 50;
-      c.el.style.top = `${Math.random() * window.innerHeight * 0.35 - 40}px`;
+    if (c.x < cCfg.wrapLeft) {
+      c.x = window.innerWidth + cCfg.wrapResetRight;
+      c.el.style.top = `${Math.random() * window.innerHeight * cCfg.yLimit + cCfg.yOffset}px`;
     }
     c.el.style.left = `${c.x}px`;
   }

@@ -1,3 +1,7 @@
+import { CONFIG } from './config.js';
+
+const mCfg = CONFIG.mountains;
+
 let layers = {};
 let animTime = 0;
 let rafId = null;
@@ -19,13 +23,13 @@ export function updateSeason(season) {
 }
 
 function animate() {
-  animTime += 0.005;
+  animTime += mCfg.animSpeed;
   const sx = Math.sin(animTime);
-  const scale = W / 1920;
-  layers.mountains1.style.transform = `translate(${sx * -6 * scale}px, 0)`;
-  layers.mountains2.style.transform = `translate(${sx * -14 * scale}px, 0)`;
-  layers.hills1.style.transform = `translate(${sx * -22 * scale}px, 0)`;
-  layers.hills2.style.transform = `translate(${sx * -30 * scale}px, 0)`;
+  const scale = W / mCfg.referenceWidth;
+  layers.mountains1.style.transform = `translate(${sx * mCfg.parallax.mountains1 * scale}px, 0)`;
+  layers.mountains2.style.transform = `translate(${sx * mCfg.parallax.mountains2 * scale}px, 0)`;
+  layers.hills1.style.transform = `translate(${sx * mCfg.parallax.hills1 * scale}px, 0)`;
+  layers.hills2.style.transform = `translate(${sx * mCfg.parallax.hills2 * scale}px, 0)`;
   rafId = requestAnimationFrame(animate);
 }
 

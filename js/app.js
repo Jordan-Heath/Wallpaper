@@ -1,3 +1,4 @@
+import { CONFIG } from './config.js';
 import { render } from './draw.js';
 import { getSeason } from './astro.js';
 import { initRain, resize as resizeRain, setRainIntensity } from './rain.js';
@@ -7,6 +8,8 @@ import { initMountains, updateSeason, startMountains, stopMountains } from './mo
 import { initDebug } from './debug.js';
 import { initParticles, setParticleSeason, startParticles, stopParticles } from './particles.js';
 
+const { errorToast: errCfg, fallback: fbCfg, rainOverlay: roCfg } = CONFIG;
+
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
 
@@ -15,16 +18,20 @@ initClouds(document.getElementById('scene'));
 initMountains(['mountains1', 'mountains2', 'hills1', 'hills2']);
 initParticles(document.getElementById('scene'));
 
+const rainOverlay = document.createElement('div');
+rainOverlay.id = 'rain-overlay';
+document.getElementById('scene').appendChild(rainOverlay);
+
 let lastCloudCover = -1;
 let lastRainIntensity = 0;
 let lastRenderTime = 0;
-const RENDER_INTERVAL = 1000;
 let W, H;
 let location_ = null;
 let weatherData = null;
 let pollIntervalId = null;
 let currentSeason = null;
 let seasonOverride = null;
+let timeOverride = null;
 function resize() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
@@ -47,25 +54,24 @@ function showError(msg) {
   const el = document.createElement('div');
   el.textContent = msg;
   el.style.cssText = `
-    background:rgba(200,50,50,0.9); backdrop-filter:blur(8px);
-    color:#fff; padding:10px 16px; border-radius:10px;
-    font:14px system-ui,sans-serif; max-width:320px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.5);
+    background:rgba(${errCfg.bgColor[0]},${errCfg.bgColor[1]},${errCfg.bgColor[2]},${errCfg.bgOpacity});
+    backdrop-filter:blur(${errCfg.backdropBlur});
+    color:${errCfg.textColor}; padding:${errCfg.padding}; border-radius:${errCfg.borderRadius};
+    font:${errCfg.fontSize} system-ui,sans-serif; max-width:${errCfg.maxWidth};
+    box-shadow:0 4px ${errCfg.shadowBlur} rgba(0,0,0,${errCfg.shadowOpacity});
     animation: errIn 0.25s ease;
     pointer-events:auto;
   `;
   errorToast.appendChild(el);
   setTimeout(() => {
-    el.style.transition = 'opacity 0.4s, transform 0.4s';
+    el.style.transition = `opacity ${errCfg.fadeMs}ms, transform ${errCfg.fadeMs}ms`;
     el.style.opacity = '0';
     el.style.transform = 'translateY(-8px)';
-    setTimeout(() => el.remove(), 400);
-  }, 5000);
+    setTimeout(() => el.remove(), errCfg.fadeMs);
+  }, errCfg.displayMs);
 }
 
-const weatherOverlay = document.createElement('div');
-weatherOverlay.id = 'weather-overlay';
-document.getElementById('scene').appendChild(weatherOverlay);
+
 
 function updatePanel(data) {
   document.getElementById('loc').textContent = data.location;
@@ -81,10 +87,17 @@ function updatePanel(data) {
 
 function renderScene() {
   if (!location_) return;
-  const data = render(ctx, W, H, location_, weatherData);
+  let renderNow;
+  if (timeOverride != null) {
+    renderNow = new Date();
+    const h = Math.floor(timeOverride);
+    const m = Math.round((timeOverride - h) * 60);
+    renderNow.setHours(h, m % 60, 0, 0);
+  }
+  const data = render(ctx, W, H, location_, weatherData, renderNow, weatherData ? weatherData.cloudCover : 0);
   if (data) updatePanel(data);
 
-  const season = seasonOverride || getSeason(new Date(), location_.lat);
+  const season = seasonOverride || getSeason(renderNow || new Date(), location_.lat);
   if (season !== currentSeason) {
     currentSeason = season;
     updateSeason(season);
@@ -98,9 +111,9 @@ function renderScene() {
     spawnClouds(cloudCover);
   }
 
-  const cover = cloudCover * 0.55;
-  const c = Math.round(60 + cover * 40);
-  weatherOverlay.style.background = `rgba(${c},${Math.round(c * 0.85)},${Math.round(c * 0.9)},${cover})`;
+  const rainAlpha = rainIntensity * roCfg.intensityScaling;
+  rainOverlay.style.background = `rgba(${roCfg.color[0]},${roCfg.color[1]},${roCfg.color[2]},${rainAlpha})`;
+
   lastRenderTime = performance.now();
 }
 
@@ -119,16 +132,16 @@ fetch('default-location.json')
     location_ = loc;
     renderScene();
     pollWeather();
-    pollIntervalId = setInterval(pollWeather, 600000);
+    pollIntervalId = setInterval(pollWeather, CONFIG.weatherPollIntervalMs);
   })
   .catch(() => {
     showError('Could not load location config, using fallback');
-    location_ = { lat: -37.8142454, lng: 144.9631732, label: 'Melbourne' };
+    location_ = { lat: fbCfg.lat, lng: fbCfg.lng, label: fbCfg.label };
     renderScene();
   });
 
 function mainLoop(time) {
-  if (time - lastRenderTime >= RENDER_INTERVAL) {
+  if (time - lastRenderTime >= CONFIG.renderInterval) {
     lastRenderTime = time;
     renderScene();
   }
@@ -145,7 +158,7 @@ function resumeWeatherPolling() {
   seasonOverride = null;
   currentSeason = null;
   pollWeather();
-  pollIntervalId = setInterval(pollWeather, 600000);
+  pollIntervalId = setInterval(pollWeather, CONFIG.weatherPollIntervalMs);
 }
 
 initDebug({
@@ -160,10 +173,17 @@ initDebug({
     seasonOverride = s;
     currentSeason = null;
   },
+  getTimeOverride: () => timeOverride,
+  setTimeOverride(t) {
+    timeOverride = t;
+  },
   onEnter() {
     if (pollIntervalId) { clearInterval(pollIntervalId); pollIntervalId = null; }
   },
   onExit() {
+    seasonOverride = null;
+    timeOverride = null;
+    currentSeason = null;
     resumeWeatherPolling();
   },
 });

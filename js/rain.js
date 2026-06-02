@@ -1,3 +1,7 @@
+import { CONFIG } from './config.js';
+
+const rCfg = CONFIG.rain;
+
 let drops = [];
 let intensity = 0;
 let canvas = null;
@@ -8,9 +12,9 @@ function createDrop(W) {
   return {
     x: Math.random() * (W || 1920),
     y: -Math.random() * 30,
-    len: Math.random() * 14 + 8,
-    speed: Math.random() * 8 + 5,
-    opacity: Math.random() * 0.35 + 0.15,
+    len: rCfg.dropLenMin + Math.random() * rCfg.dropLenRange,
+    speed: rCfg.dropSpeedMin + Math.random() * rCfg.dropSpeedRange,
+    opacity: rCfg.dropOpacityMin + Math.random() * rCfg.dropOpacityRange,
   };
 }
 
@@ -21,23 +25,23 @@ function ensureDrops(target, W) {
 
 function update(W, H) {
   for (const d of drops) {
-    d.x += -1.5 - Math.random() * 0.5;
+    d.x += rCfg.driftBase - Math.random() * rCfg.driftRandom;
     d.y += d.speed;
-    if (d.y > H + 10) { d.y = -d.len; d.x = Math.random() * W; }
-    if (d.x < -20) d.x = W + 10;
+    if (d.y > H + rCfg.wrapBottom) { d.y = -d.len; d.x = Math.random() * W; }
+    if (d.x < rCfg.wrapLeft) d.x = W + 10;
   }
 }
 
 function draw() {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = 'rgb(70,140,255)';
-  ctx.lineWidth = 1 + intensity * 0.5;
+  ctx.strokeStyle = `rgb(${rCfg.color[0]},${rCfg.color[1]},${rCfg.color[2]})`;
+  ctx.lineWidth = rCfg.lineWidthBase + intensity * rCfg.lineWidthIntensityFactor;
   ctx.lineCap = 'butt';
   for (const d of drops) {
     ctx.beginPath();
     ctx.moveTo(d.x, d.y);
-    ctx.lineTo(d.x + 3 + intensity * 2, d.y - d.len);
+    ctx.lineTo(d.x + rCfg.diagonalOffsetBase + intensity * rCfg.diagonalOffsetIntensityFactor, d.y - d.len);
     ctx.stroke();
   }
 }
@@ -45,7 +49,7 @@ function draw() {
 function loop() {
   const W = canvas.width;
   const H = canvas.height;
-  const target = Math.floor(300 * intensity);
+  const target = Math.floor(rCfg.maxDropsPerIntensity * intensity);
   ensureDrops(target, W);
   update(W, H);
   draw();

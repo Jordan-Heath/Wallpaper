@@ -1,3 +1,39 @@
+:root {
+  --scene-bg: #000;
+  --rain-z: 6;
+  --rain-overlay-z: 5;
+
+
+  --mountain-layer-left: -10%;
+  --mountain-layer-width: 120%;
+  --mountain-layer-height: 55%;
+
+  --z-mountains1: 1;
+  --z-mountains2: 2;
+  --z-hills1: 3;
+  --z-hills2: 4;
+
+  --panel-bottom: 60px;
+  --panel-right: 10px;
+  --panel-bg: rgba(0, 0, 0, 0.45);
+  --panel-backdrop-blur: blur(8px);
+  --panel-color: #fff;
+  --panel-padding: 16px 18px;
+  --panel-border-radius: 14px;
+  --panel-font-size: 13px;
+  --panel-line-height: 1.7;
+  --panel-z: 50;
+  --panel-max-width: 270px;
+  --panel-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+
+  --button-bg: #ffae42;
+  --button-color: #222;
+  --button-hover-bg: #ffc06b;
+
+  --badge-font-size: 11px;
+  --badge-bg: rgba(255, 255, 255, 0.15);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +53,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #000;
+  background: var(--scene-bg);
 }
 
 #sky {
@@ -35,23 +71,23 @@ body {
   height: 100%;
   display: block;
   pointer-events: none;
-  z-index: 6;
+  z-index: var(--rain-z);
 }
 
-#weather-overlay {
+#rain-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
+  z-index: var(--rain-overlay-z);
   transition: background 0.8s ease;
 }
 
 .mountain-layer {
   position: absolute;
-  left: -10%;
-  width: 120%;
+  left: var(--mountain-layer-left);
+  width: var(--mountain-layer-width);
   bottom: 0;
-  height: 55%;
+  height: var(--mountain-layer-height);
   pointer-events: none;
   background-repeat: repeat-x;
   background-size: auto 100%;
@@ -59,36 +95,25 @@ body {
   will-change: transform;
 }
 
-#mountains1 {
-  z-index: 1;
-}
-
-#mountains2 {
-  z-index: 2;
-}
-
-#hills1 {
-  z-index: 3;
-}
-
-#hills2 {
-  z-index: 4;
-}
+#mountains1 { z-index: var(--z-mountains1); }
+#mountains2 { z-index: var(--z-mountains2); }
+#hills1 { z-index: var(--z-hills1); }
+#hills2 { z-index: var(--z-hills2); }
 
 #panel {
   position: absolute;
-  bottom: 60px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(8px);
-  color: #fff;
-  padding: 16px 18px;
-  border-radius: 14px;
-  font-size: 13px;
-  line-height: 1.7;
-  z-index: 50;
-  max-width: 270px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  bottom: var(--panel-bottom);
+  right: var(--panel-right);
+  background: var(--panel-bg);
+  backdrop-filter: var(--panel-backdrop-blur);
+  color: var(--panel-color);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-border-radius);
+  font-size: var(--panel-font-size);
+  line-height: var(--panel-line-height);
+  z-index: var(--panel-z);
+  max-width: var(--panel-max-width);
+  box-shadow: var(--panel-shadow);
 }
 
 #panel .row {
@@ -108,22 +133,22 @@ body {
   padding: 8px;
   border: none;
   border-radius: 8px;
-  background: #ffae42;
-  color: #222;
+  background: var(--button-bg);
+  color: var(--button-color);
   font-weight: 600;
   cursor: pointer;
 }
 
 #panel button:hover {
-  background: #ffc06b;
+  background: var(--button-hover-bg);
 }
 
 .badge {
   display: inline-block;
   padding: 1px 8px;
   border-radius: 20px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.15);
+  font-size: var(--badge-font-size);
+  background: var(--badge-bg);
 }
 
 @keyframes errIn {
