@@ -102,6 +102,14 @@ export const CONFIG = {
   },
 
   // ====================================================================
+  // SNOW OVERLAY  (white/blue tint that fades in when it snows)
+  // ====================================================================
+  snowOverlay: {
+    color: [200, 220, 255],
+    intensityScaling: 0.3,
+  },
+
+  // ====================================================================
   // CLOUD COVER VISUALS  (sky desaturation + sun/moon fade instead of
   // a coloured overlay over the whole scene)
   // ====================================================================
@@ -153,6 +161,28 @@ export const CONFIG = {
     lineWidthIntensityFactor: 0.5,
     diagonalOffsetBase: 3,
     diagonalOffsetIntensityFactor: 2,
+    wrapBottom: 10,
+    wrapLeft: -20,
+  },
+
+  // ====================================================================
+  // SNOW
+  // ====================================================================
+  snow: {
+    maxFlakesPerIntensity: 400,
+    flakeRadiusMin: 1,
+    flakeRadiusRange: 2.5,
+    fallSpeedMin: 1,
+    fallSpeedRange: 2.5,
+    flakeOpacityMin: 0.4,
+    flakeOpacityRange: 0.5,
+    driftBase: -0.3,
+    driftRandom: 0.6,
+    swayFreqMin: 0.005,
+    swayFreqRange: 0.015,
+    swayAmpMin: 0.3,
+    swayAmpRange: 0.7,
+    color: [230, 240, 255],
     wrapBottom: 10,
     wrapLeft: -20,
   },
@@ -274,6 +304,22 @@ export const CONFIG = {
       71: 0.2,
       61: 0.25,
       51: 0.1,
+    },
+
+    snowMaxRatio: 5,
+    snowIntensityThresholds: [
+      [85, 0.6],
+      [75, 1.0],
+      [73, 0.7],
+      [71, 0.4],
+      [57, 0.2],
+    ],
+    snowIntensityFactors: {
+      85: 0.2,
+      75: 0.0,
+      73: 0.0,
+      71: 0.0,
+      57: 0.0,
     },
   },
 

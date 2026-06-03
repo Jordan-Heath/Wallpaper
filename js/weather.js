@@ -2,6 +2,9 @@ import { CONFIG } from './config.js';
 
 const wCfg = CONFIG.weather;
 
+const SNOW_CODES = new Set([71, 73, 75, 77, 85, 86]);
+const RAIN_CODES = new Set([51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82]);
+
 export const WMO = {
   0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
   45: 'Foggy', 48: 'Foggy',
@@ -29,6 +32,8 @@ export function rainIntensityFromWeather(current) {
   const code = current.weather_code;
   const rain = current.rain || 0;
 
+  if (SNOW_CODES.has(code)) return 0;
+
   if (rain > 0) return Math.min(rain / wCfg.rainMaxRatio, 1);
 
   for (const [minCode, baseValue] of wCfg.rainIntensityThresholds) {
@@ -40,15 +45,33 @@ export function rainIntensityFromWeather(current) {
   return 0;
 }
 
+export function snowIntensityFromWeather(current) {
+  const code = current.weather_code;
+  const snow = current.snowfall || 0;
+
+  if (RAIN_CODES.has(code)) return 0;
+
+  if (snow > 0) return Math.min(snow / wCfg.snowMaxRatio, 1);
+
+  for (const [minCode, baseValue] of wCfg.snowIntensityThresholds) {
+    if (code >= minCode) {
+      const factor = wCfg.snowIntensityFactors[minCode] || 0;
+      return baseValue + (code - minCode) * factor;
+    }
+  }
+  return 0;
+}
+
 export async function fetchWeather(lat, lng) {
   try {
-    const url = `${wCfg.apiUrl}?latitude=${lat}&longitude=${lng}&current=temperature_2m,precipitation,rain,weather_code&timezone=auto`;
+    const url = `${wCfg.apiUrl}?latitude=${lat}&longitude=${lng}&current=temperature_2m,precipitation,rain,snowfall,weather_code&timezone=auto`;
     const res = await fetch(url);
     const data = await res.json();
     const c = data.current;
     return {
       cloudCover: cloudCoverFromWeather(c),
       rainIntensity: rainIntensityFromWeather(c),
+      snowIntensity: snowIntensityFromWeather(c),
       temperature: c.temperature_2m,
       weatherCode: c.weather_code,
       description: WMO[c.weather_code] || 'Unknown',

@@ -2,6 +2,7 @@ import { CONFIG } from './config.js';
 import { render } from './draw.js';
 import { getSeason } from './astro.js';
 import { initRain, resize as resizeRain, setRainIntensity } from './rain.js';
+import { initSnow, resize as resizeSnow, setSnowIntensity } from './snow.js';
 import { fetchWeather } from './weather.js';
 import { initClouds, spawnClouds, startClouds, stopClouds } from './clouds.js';
 import { initMountains, updateSeason, startMountains, stopMountains } from './mountains.js';
@@ -9,12 +10,13 @@ import { initDebug } from './debug.js';
 import { initParticles, setParticleSeason, startParticles, stopParticles } from './particles.js';
 import { initLightning, setLightningIntensity, setThunderstormIntensity } from './lightning.js';
 
-const { errorToast: errCfg, fallback: fbCfg, rainOverlay: roCfg } = CONFIG;
+const { errorToast: errCfg, fallback: fbCfg, rainOverlay: roCfg, snowOverlay: soCfg } = CONFIG;
 
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
 
 initRain(document.getElementById('rain'));
+initSnow(document.getElementById('snow'));
 initClouds(document.getElementById('scene'));
 initMountains(['mountains1', 'mountains2', 'hills1', 'hills2']);
 initParticles(document.getElementById('scene'));
@@ -23,6 +25,10 @@ initLightning(document.getElementById('scene'));
 const rainOverlay = document.createElement('div');
 rainOverlay.id = 'rain-overlay';
 document.getElementById('scene').appendChild(rainOverlay);
+
+const snowOverlay = document.createElement('div');
+snowOverlay.id = 'snow-overlay';
+document.getElementById('scene').appendChild(snowOverlay);
 
 let lastCloudCover = -1;
 let lastRainIntensity = 0;
@@ -38,6 +44,7 @@ function resize() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
   resizeRain();
+  resizeSnow();
   lastCloudCover = -1;
   renderScene();
 }
@@ -116,6 +123,10 @@ function renderScene() {
   const rainAlpha = rainIntensity * roCfg.intensityScaling;
   rainOverlay.style.background = `rgba(${roCfg.color[0]},${roCfg.color[1]},${roCfg.color[2]},${rainAlpha})`;
 
+  const snowIntensity = weatherData ? weatherData.snowIntensity : 0;
+  const snowAlpha = snowIntensity * soCfg.intensityScaling;
+  snowOverlay.style.background = `rgba(${soCfg.color[0]},${soCfg.color[1]},${soCfg.color[2]},${snowAlpha})`;
+
   lastRenderTime = performance.now();
 }
 
@@ -124,6 +135,7 @@ function pollWeather() {
     if (!data) showError('Could not fetch weather data');
     weatherData = data;
     setRainIntensity(data ? data.rainIntensity : 0);
+    setSnowIntensity(data ? data.snowIntensity : 0);
     setThunderstormIntensity(data ? data.weatherCode : 0);
     renderScene();
   });
@@ -169,6 +181,7 @@ initDebug({
   applyWeather(data) {
     weatherData = data;
     setRainIntensity(data.rainIntensity);
+    setSnowIntensity(data.snowIntensity != null ? data.snowIntensity : 0);
     if (data.lightningIntensity != null) {
       setLightningIntensity(data.lightningIntensity);
     } else {
