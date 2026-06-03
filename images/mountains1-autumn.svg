@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
   <defs>
     <style>
-      .mtn-back  { fill: var(--mtn-back, #a68a64); }
-      .mtn-front { fill: var(--mtn-front, #936639); }
-      .mtn-hl    { fill: var(--mtn-hl, #c8b080); }
+      .mtn-back  { fill: var(--mtn-back, #8da0a8); }
+      .mtn-front { fill: var(--mtn-front, #89917b); }
+      .mtn-hl    { fill: var(--mtn-hl, #d4d0c7); }
     </style>
     <clipPath id="frontRidge">
       <polygon points="0,380 100,300 190,175 290,290 400,150 510,310 610,170 720,295 820,130 940,300 1040,165 1160,285 1260,140 1380,310 1480,170 1590,285 1690,145 1800,300 1900,160 2010,285 2110,125 2220,300 2320,165 2400,360 2400,500 0,500"/>

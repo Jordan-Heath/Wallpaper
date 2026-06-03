@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
   <defs>
     <style>
-      .mtn-back  { fill: var(--mtn-back, #5f8a6f); }
-      .mtn-front { fill: var(--mtn-front, #4a7a5a); }
+      .mtn-back  { fill: var(--mtn-back, #8a968e); }
+      .mtn-front { fill: var(--mtn-front, #65816e); }
       .mtn-hl    { fill: var(--mtn-hl, #a8d4a8); }
     </style>
     <clipPath id="frontRidge">
