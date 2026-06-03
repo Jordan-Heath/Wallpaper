@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
   <defs>
     <style>
-      .mtn-back  { fill: var(--mtn-back, #4a7a5a); }
-      .mtn-front { fill: var(--mtn-front, #5f8a6f); }
+      .mtn-back  { fill: var(--mtn-back, #5f8a6f); }
+      .mtn-front { fill: var(--mtn-front, #4a7a5a); }
       .mtn-hl    { fill: var(--mtn-hl, #a8d4a8); }
-      .mtn-hl2   { fill: var(--mtn-hl2, #c0e0c0); }
     </style>
     <clipPath id="frontRidge">
       <polygon points="0,370 90,290 170,165 270,280 370,140 480,300 580,160 690,285 790,120 910,290 1010,155 1130,275 1230,130 1350,300 1450,160 1560,275 1660,135 1770,290 1870,150 1980,275 2080,115 2190,290 2290,155 2400,350 2400,500 0,500"/>
@@ -14,10 +13,10 @@
   <polygon class="mtn-front" points="0,370 90,290 170,165 270,280 370,140 480,300 580,160 690,285 790,120 910,290 1010,155 1130,275 1230,130 1350,300 1450,160 1560,275 1660,135 1770,290 1870,150 1980,275 2080,115 2190,290 2290,155 2400,350 2400,500 0,500"/>
   <g clip-path="url(#frontRidge)">
     <ellipse class="mtn-hl" cx="170" cy="165" rx="40" ry="18"/>
-    <ellipse class="mtn-hl2" cx="370" cy="140" rx="55" ry="22"/>
+    <ellipse class="mtn-hl" cx="370" cy="140" rx="55" ry="22"/>
     <ellipse class="mtn-hl" cx="790" cy="120" rx="45" ry="20"/>
-    <ellipse class="mtn-hl2" cx="1230" cy="130" rx="50" ry="22"/>
+    <ellipse class="mtn-hl" cx="1230" cy="130" rx="50" ry="22"/>
     <ellipse class="mtn-hl" cx="1660" cy="135" rx="42" ry="18"/>
-    <ellipse class="mtn-hl2" cx="2080" cy="115" rx="50" ry="22"/>
+    <ellipse class="mtn-hl" cx="2080" cy="115" rx="50" ry="22"/>
   </g>
 </svg>

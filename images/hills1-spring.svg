@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
   <defs>
     <style>
-      .hill-ground   { fill: var(--hill-ground, #3a5a48); }
+      .hill-ground   { fill: var(--hill-ground, #446954); }
       .trunk         { fill: var(--trunk, #4a3010); }
       .foliage-light { fill: var(--foliage-light, #6aaa4a); }
       .foliage-dark  { fill: var(--foliage-dark, #5a9a3a); }
