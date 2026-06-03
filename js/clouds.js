@@ -8,7 +8,7 @@ let rafId = null;
 let running = false;
 
 function createCloud(intensity) {
-  const variant = Math.floor(Math.random() * 3) + 1;
+  const variant = Math.floor(Math.random() * 5) + 1;
   const scale = cCfg.scaleMin + Math.random() * cCfg.scaleRange;
   const el = document.createElement('div');
   el.innerHTML = `<img src="images/cloud${variant}.svg" style="width:${cCfg.baseWidth * scale}px">`;
