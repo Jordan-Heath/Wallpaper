@@ -4,6 +4,7 @@ const wCfg = CONFIG.weather;
 
 const SNOW_CODES = new Set([71, 73, 75, 77, 85, 86]);
 const RAIN_CODES = new Set([51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82]);
+const STORM_CODES = new Set([95, 96, 99]);
 
 export const WMO = {
   0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
@@ -49,6 +50,7 @@ export function snowIntensityFromWeather(current) {
   const code = current.weather_code;
   const snow = current.snowfall || 0;
 
+  if (STORM_CODES.has(code)) return 0;
   if (RAIN_CODES.has(code)) return 0;
 
   if (snow > 0) return Math.min(snow / wCfg.snowMaxRatio, 1);
