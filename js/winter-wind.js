@@ -2,67 +2,77 @@ import { CONFIG } from './config.js';
 
 const wCfg = CONFIG.winterWind;
 
-let waves = [];
+let pieces = [];
 let canvas = null;
 let ctx = null;
 let rafId = null;
 let animTime = 0;
 
-function createWave(W, H) {
+function createPiece(W, H) {
+  const amp = wCfg.ampMin + Math.random() * wCfg.ampRange;
+  const freq = wCfg.freqMin + Math.random() * wCfg.freqRange;
   return {
+    x: Math.random() * W,
     y: Math.random() * H,
-    amp: wCfg.ampMin + Math.random() * wCfg.ampRange,
-    freq: wCfg.freqMin + Math.random() * wCfg.freqRange,
-    speed: (wCfg.speedMin + Math.random() * wCfg.speedRange) * (Math.random() < 0.5 ? 1 : -1),
+    amp,
+    freq,
+    speed: freq * wCfg.speedFreqFactor,
+    driftAmp: amp * wCfg.driftAmpFactor,
     phase: Math.random() * Math.PI * 2,
-    gustPhase: Math.random() * Math.PI * 2,
-    gustSpeed: wCfg.gustSpeedMin + Math.random() * wCfg.gustSpeedRange,
+    driftPhase: Math.random() * Math.PI * 2,
+    driftSpeed: wCfg.driftSpeedMin + Math.random() * wCfg.driftSpeedRange,
+    spacing: wCfg.lineSpacingMin + Math.random() * wCfg.lineSpacingRange,
     opacity: wCfg.opacityMin + Math.random() * wCfg.opacityRange,
     width: wCfg.widthMin + Math.random() * wCfg.widthRange,
   };
 }
 
-function ensureWaves(target, W, H) {
-  while (waves.length < target) waves.push(createWave(W, H));
-  while (waves.length > target) waves.pop();
+function ensurePieces(target, W, H) {
+  while (pieces.length < target) pieces.push(createPiece(W, H));
+  while (pieces.length > target) pieces.pop();
 }
 
 function update(W, H) {
-  for (const w of waves) {
-    w.phase += w.speed * 0.02;
-    w.gustPhase += w.gustSpeed;
-    w.y += Math.sin(animTime * 0.0003 + w.phase * 0.1) * 0.05;
-    if (w.y > H + 50) w.y = -50;
-    if (w.y < -50) w.y = H + 50;
+  for (const p of pieces) {
+    p.x -= p.speed;
+    p.phase += p.driftSpeed;
+    p.driftPhase += p.driftSpeed;
+    p.y += Math.sin(p.driftPhase) * p.driftAmp;
+
+    if (p.x < -wCfg.length) {
+      p.x = W + wCfg.length;
+      p.y = Math.random() * H;
+    }
   }
 }
 
 function draw() {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const W = canvas.width;
 
-  for (const w of waves) {
-    const gust = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(w.gustPhase));
-    const alpha = w.opacity * gust;
-
-    ctx.beginPath();
-    for (let x = 0; x <= W; x += 2) {
-      const y = w.y + Math.sin(x * w.freq + w.phase) * w.amp;
-      if (x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = `rgba(${wCfg.color[0]},${wCfg.color[1]},${wCfg.color[2]},${alpha})`;
-    ctx.lineWidth = w.width;
+  for (const p of pieces) {
+    const offsets = [-p.spacing, 0, p.spacing];
+    ctx.strokeStyle = `rgba(${wCfg.color[0]},${wCfg.color[1]},${wCfg.color[2]},${p.opacity})`;
+    ctx.lineWidth = p.width;
     ctx.lineCap = 'round';
-    ctx.stroke();
+
+    for (const off of offsets) {
+      ctx.beginPath();
+      for (let dx = 0; dx <= wCfg.length; dx += 2) {
+        const x = p.x + dx;
+        const y = p.y + off + Math.sin(x * p.freq + p.phase) * p.amp;
+        if (dx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
   }
 }
 
 function loop() {
   const W = canvas.width;
   const H = canvas.height;
-  ensureWaves(wCfg.count, W, H);
+  ensurePieces(wCfg.count, W, H);
   animTime += 0.016;
   update(W, H);
   draw();

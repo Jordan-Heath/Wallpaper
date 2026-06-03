@@ -44,17 +44,18 @@ function update(W, H) {
 
 function drawBird(b) {
   const s = b.size;
-  const flap = Math.sin(b.wingPhase) * b.wingAmp;
+  const flap = Math.sin(b.wingPhase) * b.wingAmp * s;
+  const bob = Math.sin(b.wingPhase) * s * 0.15;
 
   ctx.save();
   ctx.translate(b.x, b.y);
   ctx.scale(b.dir, 1);
 
   ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.quadraticCurveTo(-s * 0.3, -s * 0.3 - flap, -s * 0.7, -flap * 0.4);
-  ctx.moveTo(0, 0);
-  ctx.quadraticCurveTo(s * 0.3, -s * 0.3 - flap, s * 0.7, -flap * 0.4);
+  ctx.moveTo(0, bob);
+  ctx.quadraticCurveTo(-s * 0.35, -s * 0.1 - flap * 0.5, -s * 0.75, -s * 0.15 - flap);
+  ctx.moveTo(0, bob);
+  ctx.quadraticCurveTo(s * 0.35, -s * 0.1 - flap * 0.5, s * 0.75, -s * 0.15 - flap);
 
   ctx.strokeStyle = `rgba(${bCfg.color[0]},${bCfg.color[1]},${bCfg.color[2]},${b.opacity})`;
   ctx.lineWidth = bCfg.lineWidth;
