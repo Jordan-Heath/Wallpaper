@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <defs>
+    <clipPath id="cloudClip">
+      <circle cx="45" cy="62" r="32"/>
+      <circle cx="100" cy="48" r="38"/>
+      <circle cx="155" cy="62" r="32"/>
+      <rect x="12" y="62" width="175" height="22" rx="11"/>
+    </clipPath>
+  </defs>
+  <g fill="#ccc">
+    <circle cx="45" cy="62" r="32"/>
+    <circle cx="100" cy="48" r="38"/>
+    <circle cx="155" cy="62" r="32"/>
+    <rect x="12" y="62" width="175" height="22" rx="11"/>
+  </g>
+  <g clip-path="url(#cloudClip)">
+    <g transform="translate(-20, -20)" fill="#fff" opacity="0.4">
+      <circle cx="45" cy="62" r="32"/>
+      <circle cx="100" cy="48" r="38"/>
+      <circle cx="155" cy="62" r="32"/>
+      <rect x="12" y="62" width="175" height="22" rx="11"/>
+    </g>
+  </g>
+</svg>
