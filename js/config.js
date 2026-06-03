@@ -7,10 +7,10 @@ export const CONFIG = {
   // ====================================================================
   // LAYOUT — horizon, sun/moon path
   // ====================================================================
-  horizonYRatio: 0.78,
+  horizonYRatio: 0.70,
   peakHeightRatio: 0.62,
-  sunPathStart: 0.92,
-  sunPathEnd: 0.08,
+  sunPathStart: 1.0,
+  sunPathEnd: 0.0,
 
   // ====================================================================
   // SKY GRADIENT COLORS  (RGB 0‑255)
