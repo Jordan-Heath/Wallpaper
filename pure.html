@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky Canvas</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="scene">
+  <canvas id="sky"></canvas>
+  <canvas id="rain"></canvas>
+  <canvas id="snow"></canvas>
+  <canvas id="birds"></canvas>
+  <canvas id="wind"></canvas>
+
+  <div class="mountain-layer" id="mountains1"></div>
+  <div class="mountain-layer" id="mountains2"></div>
+  <div class="mountain-layer" id="hills1"></div>
+  <div class="mountain-layer" id="hills2"></div>
+
+  <div id="panel" style="display: none;">
+    <div class="row"><span>Location</span><span id="loc">—</span></div>
+    <div class="row"><span>Local time</span><span id="time">—</span></div>
+    <div class="row"><span>Date</span><span id="date">—</span></div>
+    <div class="row"><span>Season</span><span id="season">—</span></div>
+    <div class="row"><span>Sunrise</span><span id="sunrise">—</span></div>
+    <div class="row"><span>Sunset</span><span id="sunset">—</span></div>
+    <div class="row"><span>Phase</span><span><span class="badge" id="phase">—</span></span></div>
+    <div class="row"><span>Temperature</span><span id="temp">—</span></div>
+    <div class="row"><span>Conditions</span><span id="conditions">—</span></div>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
