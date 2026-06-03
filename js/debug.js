@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import { WMO, cloudCoverFromWeather, rainIntensityFromWeather } from './weather.js';
+import { lightningIntensityFromCode } from './lightning.js';
 
 const dCfg = CONFIG.debug;
 
@@ -59,6 +60,10 @@ export function initDebug({
       <input type="range" id="dbgRainIntensity" min="0" max="1" step="0.05" value="0">
       <span class="dbg-val" id="dbgRainVal">0.00</span>
     </span></label>
+    <label>Lightning <span style="display:flex;align-items:center;gap:4px;width:110px">
+      <input type="range" id="dbgLightning" min="0" max="1" step="0.05" value="0">
+      <span class="dbg-val" id="dbgLVal">0.00</span>
+    </span></label>
     <label>Season <select id="dbgSeason">
       <option value="">Auto</option>
       <option value="Spring">Spring</option>
@@ -78,6 +83,8 @@ export function initDebug({
   const dbgCCVal = document.getElementById('dbgCCVal');
   const dbgRainIntensity = document.getElementById('dbgRainIntensity');
   const dbgRainVal = document.getElementById('dbgRainVal');
+  const dbgLightning = document.getElementById('dbgLightning');
+  const dbgLVal = document.getElementById('dbgLVal');
   const dbgCode = document.getElementById('dbgCode');
   const dbgSeason = document.getElementById('dbgSeason');
   const dbgTime = document.getElementById('dbgTime');
@@ -92,10 +99,12 @@ export function initDebug({
     const isCustom = dbgCode.value === '';
     dbgCloudCover.disabled = !isCustom;
     dbgRainIntensity.disabled = !isCustom;
+    dbgLightning.disabled = !isCustom;
     if (isCustom) {
       applyWeather({
         cloudCover: parseFloat(dbgCloudCover.value),
         rainIntensity: parseFloat(dbgRainIntensity.value),
+        lightningIntensity: parseFloat(dbgLightning.value),
         temperature: current.temperature,
         weatherCode: 0,
         description: 'Custom',
@@ -105,14 +114,18 @@ export function initDebug({
       const computed = {
         cloudCover: cloudCoverFromWeather({ weather_code: code, rain: 0 }),
         rainIntensity: rainIntensityFromWeather({ weather_code: code, rain: 0 }),
+        lightningIntensity: lightningIntensityFromCode(code),
       };
       dbgCloudCover.value = computed.cloudCover;
       dbgCCVal.textContent = computed.cloudCover.toFixed(2);
       dbgRainIntensity.value = computed.rainIntensity;
       dbgRainVal.textContent = computed.rainIntensity.toFixed(2);
+      dbgLightning.value = computed.lightningIntensity;
+      dbgLVal.textContent = computed.lightningIntensity.toFixed(2);
       applyWeather({
         cloudCover: computed.cloudCover,
         rainIntensity: computed.rainIntensity,
+        lightningIntensity: computed.lightningIntensity,
         temperature: current.temperature,
         weatherCode: code,
         description: WMO[code] || 'Unknown',
@@ -128,10 +141,15 @@ export function initDebug({
     dbgRainVal.textContent = parseFloat(dbgRainIntensity.value).toFixed(2);
     apply();
   });
+  dbgLightning.addEventListener('input', () => {
+    dbgLVal.textContent = parseFloat(dbgLightning.value).toFixed(2);
+    apply();
+  });
   dbgCode.addEventListener('change', () => {
     const isCustom = dbgCode.value === '';
     dbgCloudCover.disabled = !isCustom;
     dbgRainIntensity.disabled = !isCustom;
+    dbgLightning.disabled = !isCustom;
     apply();
   });
   dbgSeason.addEventListener('change', apply);
@@ -150,11 +168,13 @@ export function initDebug({
     active = !active;
     if (active) {
       onEnter();
-      const w = getWeather() || { cloudCover: 0, rainIntensity: 0, temperature: 15, weatherCode: 0 };
+      const w = getWeather() || { cloudCover: 0, rainIntensity: 0, lightningIntensity: 0, temperature: 15, weatherCode: 0 };
       dbgCloudCover.value = w.cloudCover;
       dbgCCVal.textContent = w.cloudCover.toFixed(2);
       dbgRainIntensity.value = w.rainIntensity;
       dbgRainVal.textContent = w.rainIntensity.toFixed(2);
+      dbgLightning.value = w.lightningIntensity != null ? w.lightningIntensity : lightningIntensityFromCode(w.weatherCode || 0);
+      dbgLVal.textContent = parseFloat(dbgLightning.value).toFixed(2);
       dbgCode.value = w.weatherCode;
       dbgSeason.value = getSeasonOverride() || '';
       const override = getTimeOverride();

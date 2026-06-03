@@ -222,6 +222,18 @@ export const CONFIG = {
   },
 
   // ====================================================================
+  // LIGHTNING  (screen flash + bolt SVG for thunderstorms)
+  // ====================================================================
+  lightning: {
+    flashOpacity: 0.7,
+    flashFadeMs: 200,
+    boltFadeMs: 400,
+    minInterval: 3000,
+    maxInterval: 15000,
+    zIndex: { flash: 7, boltFront: 8, boltBehind: 2 },
+  },
+
+  // ====================================================================
   // WEATHER POLLING
   // ====================================================================
   weatherPollIntervalMs: 600000,

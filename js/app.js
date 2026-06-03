@@ -7,6 +7,7 @@ import { initClouds, spawnClouds, startClouds, stopClouds } from './clouds.js';
 import { initMountains, updateSeason, startMountains, stopMountains } from './mountains.js';
 import { initDebug } from './debug.js';
 import { initParticles, setParticleSeason, startParticles, stopParticles } from './particles.js';
+import { initLightning, setLightningIntensity, setThunderstormIntensity } from './lightning.js';
 
 const { errorToast: errCfg, fallback: fbCfg, rainOverlay: roCfg } = CONFIG;
 
@@ -17,6 +18,7 @@ initRain(document.getElementById('rain'));
 initClouds(document.getElementById('scene'));
 initMountains(['mountains1', 'mountains2', 'hills1', 'hills2']);
 initParticles(document.getElementById('scene'));
+initLightning(document.getElementById('scene'));
 
 const rainOverlay = document.createElement('div');
 rainOverlay.id = 'rain-overlay';
@@ -122,6 +124,7 @@ function pollWeather() {
     if (!data) showError('Could not fetch weather data');
     weatherData = data;
     setRainIntensity(data ? data.rainIntensity : 0);
+    setThunderstormIntensity(data ? data.weatherCode : 0);
     renderScene();
   });
 }
@@ -166,6 +169,11 @@ initDebug({
   applyWeather(data) {
     weatherData = data;
     setRainIntensity(data.rainIntensity);
+    if (data.lightningIntensity != null) {
+      setLightningIntensity(data.lightningIntensity);
+    } else {
+      setThunderstormIntensity(data.weatherCode);
+    }
     renderScene();
   },
   getSeasonOverride: () => seasonOverride,

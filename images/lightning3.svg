@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 480">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g filter="url(#glow)" stroke="#88bbff" opacity="0.5">
+      <path d="M 75,0 L 64,55 L 90,98 L 58,170 L 84,218 L 62,288 L 86,340 L 70,405 L 78,480" stroke-width="6"/>
+      <path d="M 84,218 L 108,248 L 98,274 L 118,302" stroke-width="3"/>
+      <path d="M 150,30 L 140,78 L 162,118 L 136,182 L 158,225 L 142,288 L 160,342 L 148,398 L 154,480" stroke-width="6"/>
+      <path d="M 158,225 L 182,252 L 172,276 L 190,304" stroke-width="3"/>
+    </g>
+    <g stroke="#fff">
+      <path d="M 75,0 L 64,55 L 90,98 L 58,170 L 84,218 L 62,288 L 86,340 L 70,405 L 78,480" stroke-width="2.5"/>
+      <path d="M 84,218 L 108,248 L 98,274 L 118,302" stroke-width="1.2"/>
+      <path d="M 150,30 L 140,78 L 162,118 L 136,182 L 158,225 L 142,288 L 160,342 L 148,398 L 154,480" stroke-width="2.5"/>
+      <path d="M 158,225 L 182,252 L 172,276 L 190,304" stroke-width="1.2"/>
+    </g>
+  </g>
+</svg>
