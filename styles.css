@@ -158,6 +158,14 @@ body {
   z-index: var(--panel-z);
   max-width: var(--panel-max-width);
   box-shadow: var(--panel-shadow);
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s ease;
+}
+
+#panel.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 #panel .row {

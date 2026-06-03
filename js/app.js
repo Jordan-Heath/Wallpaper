@@ -217,5 +217,17 @@ initDebug({
   },
 });
 
+const panel = document.getElementById('panel');
+let panelTimer;
+
+function showPanel() {
+  panel.classList.remove('hidden');
+  clearTimeout(panelTimer);
+  panelTimer = setTimeout(() => panel.classList.add('hidden'), 10000);
+}
+
+document.addEventListener('mousemove', showPanel);
+showPanel();
+
 window.addEventListener('error', e => showError(e.message));
 window.addEventListener('unhandledrejection', e => showError(e.reason?.message || 'Unhandled promise rejection'));
