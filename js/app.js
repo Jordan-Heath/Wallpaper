@@ -9,6 +9,8 @@ import { initMountains, updateSeason, startMountains, stopMountains } from './mo
 import { initDebug } from './debug.js';
 import { initParticles, setParticleSeason, startParticles, stopParticles } from './particles.js';
 import { initLightning, setLightningIntensity, setThunderstormIntensity } from './lightning.js';
+import { initBirds, resize as resizeBirds, setBirdsActive } from './birds.js';
+import { initWinterWind, resize as resizeWinterWind, setWinterWindActive } from './winter-wind.js';
 
 const { errorToast: errCfg, fallback: fbCfg, rainOverlay: roCfg, snowOverlay: soCfg } = CONFIG;
 
@@ -21,6 +23,8 @@ initClouds(document.getElementById('scene'));
 initMountains(['mountains1', 'mountains2', 'hills1', 'hills2']);
 initParticles(document.getElementById('scene'));
 initLightning(document.getElementById('scene'));
+initBirds(document.getElementById('birds'));
+initWinterWind(document.getElementById('wind'));
 
 const rainOverlay = document.createElement('div');
 rainOverlay.id = 'rain-overlay';
@@ -45,6 +49,8 @@ function resize() {
   H = canvas.height = window.innerHeight;
   resizeRain();
   resizeSnow();
+  resizeBirds();
+  resizeWinterWind();
   lastCloudCover = -1;
   renderScene();
 }
@@ -111,6 +117,8 @@ function renderScene() {
     currentSeason = season;
     updateSeason(season);
     setParticleSeason(season);
+    setBirdsActive(season === 'Summer');
+    setWinterWindActive(season === 'Winter');
   }
 
   const cloudCover = weatherData ? weatherData.cloudCover : 0;

@@ -202,6 +202,49 @@ export const CONFIG = {
   },
 
   // ====================================================================
+  // BIRDS  (summer)
+  // ====================================================================
+  birds: {
+    count: 6,
+    yBaseMin: 30,
+    yLimit: 0.45,
+    speedBase: 0.8,
+    speedRange: 1.2,
+    sizeBase: 3,
+    sizeRange: 4,
+    wingFreqBase: 0.02,
+    wingFreqRange: 0.03,
+    wingAmpBase: 0.3,
+    wingAmpRange: 0.4,
+    opacityBase: 0.4,
+    opacityRange: 0.3,
+    color: [30, 25, 40],
+    lineWidth: 1.5,
+    zIndex: 5,
+  },
+
+  // ====================================================================
+  // WINTER WIND  (transparent sine waves)
+  // ====================================================================
+  winterWind: {
+    count: 12,
+    ampMin: 8,
+    ampRange: 20,
+    freqMin: 0.003,
+    freqRange: 0.012,
+    speedMin: 0.3,
+    speedRange: 0.8,
+    gustSpeedMin: 0.005,
+    gustSpeedRange: 0.015,
+    opacityMin: 0.06,
+    opacityRange: 0.09,
+    widthMin: 2,
+    widthRange: 3,
+    color: [200, 220, 255],
+    zIndex: 5,
+  },
+
+  // ====================================================================
   // PARTICLES  (leaves / petals)
   // ====================================================================
   particles: {

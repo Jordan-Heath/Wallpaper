@@ -108,6 +108,16 @@ body {
   z-index: 6;
 }
 
+#birds, #wind {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 5;
+}
+
 #snow-overlay {
   position: absolute;
   inset: 0;

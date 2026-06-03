@@ -74,6 +74,22 @@ export function initDebug({
 
   let active = false;
 
+  const STORAGE_KEY = 'skycanvas-debug';
+
+  function saveState() {
+    const state = {
+      active,
+      cloudCover: dbgCloudCover.value,
+      rainIntensity: dbgRainIntensity.value,
+      snowIntensity: dbgSnowIntensity.value,
+      lightning: dbgLightning.value,
+      code: dbgCode.value,
+      season: dbgSeason.value,
+      time: dbgTime.value,
+    };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
   function apply() {
     setSeasonOverride(dbgSeason.value || null);
     const current = getWeather() || {};
@@ -118,6 +134,7 @@ export function initDebug({
         description: WMO[code] || 'Unknown',
       });
     }
+    saveState();
   }
 
   dbgCloudCover.addEventListener('input', () => {
@@ -189,6 +206,28 @@ export function initDebug({
       panel.style.display = 'none';
       onExit();
     }
+    saveState();
+  }
+
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch {} })();
+  if (saved && saved.active) {
+    active = true;
+    onEnter();
+    dbgCloudCover.value = saved.cloudCover ?? 0;
+    dbgCCVal.textContent = parseFloat(dbgCloudCover.value).toFixed(2);
+    dbgRainIntensity.value = saved.rainIntensity ?? 0;
+    dbgRainVal.textContent = parseFloat(dbgRainIntensity.value).toFixed(2);
+    dbgSnowIntensity.value = saved.snowIntensity ?? 0;
+    dbgSnowVal.textContent = parseFloat(dbgSnowIntensity.value).toFixed(2);
+    dbgLightning.value = saved.lightning ?? 0;
+    dbgLVal.textContent = parseFloat(dbgLightning.value).toFixed(2);
+    dbgCode.value = saved.code || '';
+    dbgSeason.value = saved.season || '';
+    dbgTime.value = saved.time ?? 12;
+    dbgTimeVal.textContent = fmtTimeH(parseFloat(dbgTime.value));
+    setTimeOverride(parseFloat(dbgTime.value));
+    panel.style.display = 'block';
+    apply();
   }
 
   document.addEventListener('keydown', e => {
