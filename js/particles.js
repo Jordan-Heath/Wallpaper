@@ -23,8 +23,8 @@ function createParticle(type) {
   container.appendChild(el);
   return {
     el,
-    x: Math.random() * window.innerWidth,
-    y: -Math.random() * window.innerHeight,
+    x: window.innerWidth + Math.random() * 200,
+    y: Math.random() * window.innerHeight,
     vx: -(pCfg.vxMin + Math.random() * pCfg.vxRange),
     vy: pCfg.vyMin + Math.random() * pCfg.vyRange,
     swayPhase: Math.random() * Math.PI * 2,
@@ -59,11 +59,17 @@ function animate() {
   const H = window.innerHeight;
   for (const p of particles) {
     p.vy = Math.min(p.vy + pCfg.gravity, pCfg.maxVy);
+
+    if (Math.random() < pCfg.updraftChance) {
+      p.vy -= pCfg.updraftStrengthMin + Math.random() * pCfg.updraftStrengthRange;
+    }
+
     p.y += p.vy;
     p.x += p.vx + Math.sin(p.y * p.swayFreq + p.swayPhase) * p.swayAmp;
     p.rotation += p.rotSpeed;
 
-    if (p.y > H + pCfg.wrapBottomThreshold) { p.y = pCfg.wrapBottomReset; p.x = Math.random() * W; }
+    if (p.y > H + pCfg.wrapBottomThreshold) { p.y = pCfg.wrapBottomReset; p.x = W + Math.random() * 200; }
+    if (p.y < -50) { p.y = H + 20; p.vy = pCfg.vyMin + Math.random() * pCfg.vyRange; p.x = W + Math.random() * 200; }
     if (p.x < pCfg.wrapLeft) p.x = W + 10;
     if (p.x > W + pCfg.wrapRight) p.x = -10;
 
