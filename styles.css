@@ -32,6 +32,22 @@
 
   --badge-font-size: 11px;
   --badge-bg: rgba(255, 255, 255, 0.15);
+
+  --dbg-bg: rgba(0,0,0,0.8);
+  --dbg-backdrop-blur: blur(8px);
+  --dbg-text-color: #fff;
+  --dbg-padding: 14px 16px;
+  --dbg-border-radius: 12px;
+  --dbg-width: 240px;
+  --dbg-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  --dbg-input-bg: #333;
+  --dbg-input-color: #fff;
+  --dbg-input-border: 1px solid #555;
+  --dbg-input-border-radius: 6px;
+  --dbg-accent-color: #ffae42;
+  --dbg-button-bg: #ffae42;
+  --dbg-button-color: #222;
+  --dbg-button-hover-bg: #ffc06b;
 }
 
 * {
@@ -159,6 +175,76 @@ body {
 
 #panel button:hover {
   background: var(--button-hover-bg);
+}
+
+#dbgPanel {
+  position: fixed;
+  bottom: 60px;
+  left: 10px;
+  z-index: 100;
+  background: var(--dbg-bg);
+  backdrop-filter: var(--dbg-backdrop-blur);
+  color: var(--dbg-text-color);
+  padding: var(--dbg-padding);
+  border-radius: var(--dbg-border-radius);
+  font: 13px system-ui, sans-serif;
+  width: var(--dbg-width);
+  display: none;
+  box-shadow: var(--dbg-shadow);
+}
+
+#dbgPanel h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+#dbgPanel label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+#dbgPanel input,
+#dbgPanel select {
+  background: var(--dbg-input-bg);
+  color: var(--dbg-input-color);
+  border: var(--dbg-input-border);
+  border-radius: var(--dbg-input-border-radius);
+  padding: 3px 8px;
+  font: inherit;
+  width: 110px;
+}
+
+#dbgPanel input[type=range] {
+  width: 110px;
+  padding: 0;
+  border: none;
+  background: none;
+  accent-color: var(--dbg-accent-color);
+}
+
+#dbgPanel .dbg-val {
+  min-width: 30px;
+  text-align: right;
+}
+
+#dbgReset {
+  width: 100%;
+  margin-top: 6px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: var(--dbg-button-bg);
+  color: var(--dbg-button-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#dbgReset:hover {
+  background: var(--dbg-button-hover-bg);
 }
 
 .badge {

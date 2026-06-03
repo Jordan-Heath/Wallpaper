@@ -1,8 +1,5 @@
-import { CONFIG } from './config.js';
 import { WMO, cloudCoverFromWeather, rainIntensityFromWeather, snowIntensityFromWeather } from './weather.js';
 import { lightningIntensityFromCode } from './lightning.js';
-
-const dCfg = CONFIG.debug;
 
 function fmtTimeH(h) {
   const hr = Math.floor(h);
@@ -25,28 +22,6 @@ export function initDebug({
   const panel = document.createElement('div');
   panel.id = 'dbgPanel';
   panel.innerHTML = `
-    <style>
-      #dbgPanel {
-        position:fixed; bottom:60px; left:10px; z-index:100;
-        background:${dCfg.bg}; backdrop-filter:blur(${dCfg.backdropBlur});
-        color:${dCfg.textColor}; padding:${dCfg.padding}; border-radius:${dCfg.borderRadius};
-        font:13px system-ui,sans-serif; width:${dCfg.width};
-        display:none; box-shadow:${dCfg.shadow};
-      }
-      #dbgPanel h3 { margin:0 0 10px; font-size:14px; letter-spacing:.5px; }
-      #dbgPanel label { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:8px; }
-      #dbgPanel input, #dbgPanel select {
-        background:${dCfg.inputBg}; color:${dCfg.inputColor}; border:${dCfg.inputBorder};
-        border-radius:${dCfg.inputBorderRadius}; padding:3px 8px; font:inherit; width:110px;
-      }
-      #dbgPanel input[type=range] { width:110px; padding:0; border:none; background:none; accent-color:${dCfg.accentColor}; }
-      #dbgPanel .dbg-val { min-width:30px; text-align:right; }
-      #dbgReset {
-        width:100%; margin-top:6px; padding:6px; border:none; border-radius:6px;
-        background:${dCfg.buttonBg}; color:${dCfg.buttonColor}; font-weight:600; cursor:pointer;
-      }
-      #dbgReset:hover { background:${dCfg.buttonHoverBg}; }
-    </style>
     <h3>Weather Debug <span style="font-weight:400;font-size:11px;color:#999">[D]</span></h3>
     <label>Code <select id="dbgCode">
       <option value="">Custom</option>
