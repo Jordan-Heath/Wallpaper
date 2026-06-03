@@ -164,10 +164,10 @@ export const CONFIG = {
     animSpeed: 0.005,
     referenceWidth: 1920,
     parallax: {
-      mountains1: -6,
-      mountains2: -14,
-      hills1: -22,
-      hills2: -30,
+      mountains1: -10,
+      mountains2: -25,
+      hills1: -50,
+      hills2: -100,
     },
   },
 
