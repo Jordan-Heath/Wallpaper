@@ -1,5 +1,71 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
   <path d="M0,475 Q400,445 800,473 T1600,465 T2400,473 L2400,500 L0,500 Z" fill="#c08b26"/>
-  <g fill="#4a2a0a">
+  <g>
+    <g transform="translate(200, 465)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-26" r="13" fill="#d4882a"/>
+      <circle cx="-8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="0" cy="-14" r="8" fill="#d4882a"/>
+      <circle cx="-3" cy="-10" r="4" fill="#d4882a"/>
+      <circle cx="4" cy="-11" r="3" fill="#c07820"/>
+    </g>
+    <g transform="translate(550, 480)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-26" r="13" fill="#d4882a"/>
+      <circle cx="-8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="0" cy="-14" r="8" fill="#d4882a"/>
+      <circle cx="-3" cy="-10" r="4" fill="#d4882a"/>
+      <circle cx="4" cy="-11" r="3" fill="#c07820"/>
+    </g>
+    <g transform="translate(900, 490)">
+      <rect x="-2" y="-15" width="4" height="15" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-22" r="11" fill="#d4882a"/>
+      <circle cx="-7" cy="-18" r="8" fill="#c07820"/>
+      <circle cx="7" cy="-18" r="8" fill="#c07820"/>
+      <circle cx="-2" cy="-10" r="3" fill="#d4882a"/>
+    </g>
+    <g transform="translate(1250, 490)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-26" r="13" fill="#d4882a"/>
+      <circle cx="-8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="0" cy="-14" r="8" fill="#d4882a"/>
+      <circle cx="-3" cy="-10" r="4" fill="#d4882a"/>
+      <circle cx="4" cy="-11" r="3" fill="#c07820"/>
+    </g>
+    <g transform="translate(1600, 470)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-26" r="13" fill="#d4882a"/>
+      <circle cx="-8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="0" cy="-14" r="8" fill="#d4882a"/>
+      <circle cx="-3" cy="-10" r="4" fill="#d4882a"/>
+      <circle cx="4" cy="-11" r="3" fill="#c07820"/>
+    </g>
+    <g transform="translate(1950, 465)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-26" r="13" fill="#d4882a"/>
+      <circle cx="-8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="8" cy="-20" r="10" fill="#c07820"/>
+      <circle cx="0" cy="-14" r="8" fill="#d4882a"/>
+      <circle cx="-3" cy="-10" r="4" fill="#d4882a"/>
+      <circle cx="4" cy="-11" r="3" fill="#c07820"/>
+    </g>
+    <g transform="translate(2250, 470)">
+      <rect x="-2" y="-15" width="4" height="15" fill="#4a3010" rx="1"/>
+      <circle cx="0" cy="-22" r="11" fill="#d4882a"/>
+      <circle cx="-7" cy="-18" r="8" fill="#c07820"/>
+      <circle cx="7" cy="-18" r="8" fill="#c07820"/>
+      <circle cx="-2" cy="-10" r="3" fill="#d4882a"/>
+    </g>
   </g>
+  <circle cx="150" cy="465" r="2" fill="#d4882a"/>
+  <circle cx="400" cy="458" r="2" fill="#c07820"/>
+  <circle cx="750" cy="470" r="2.5" fill="#d4882a"/>
+  <circle cx="1100" cy="485" r="2" fill="#c07820"/>
+  <circle cx="1450" cy="475" r="2.5" fill="#d4882a"/>
+  <circle cx="1800" cy="452" r="2" fill="#c07820"/>
+  <circle cx="2150" cy="454" r="2" fill="#d4882a"/>
 </svg>

@@ -1,5 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 500" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <clipPath id="hillClip">
+      <path d="M0,470 Q400,440 800,468 T1600,460 T2400,468 L2400,500 L0,500 Z"/>
+    </clipPath>
+  </defs>
   <path d="M0,470 Q400,440 800,468 T1600,460 T2400,468 L2400,500 L0,500 Z" fill="#2a3a5a"/>
-  <g fill="#1e2a4a">
+  <g>
+    <g transform="translate(200, 460)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-18" x2="-10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="0" y1="-18" x2="10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="-10" y1="-28" x2="-16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="10" y1="-28" x2="16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(550, 460)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-18" x2="-10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="0" y1="-18" x2="10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="-10" y1="-28" x2="-16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="10" y1="-28" x2="16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(900, 480)">
+      <rect x="-2" y="-15" width="4" height="15" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-15" x2="-9" y2="-24" stroke="#3a2a1a" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="0" y1="-15" x2="9" y2="-24" stroke="#3a2a1a" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-21" x2="-12" y2="-28" stroke="#3a2a1a" stroke-width="1" stroke-linecap="round"/>
+      <line x1="5" y1="-21" x2="12" y2="-28" stroke="#3a2a1a" stroke-width="1" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(1250, 480)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-18" x2="-10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="0" y1="-18" x2="10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="-10" y1="-28" x2="-16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="10" y1="-28" x2="16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(1600, 460)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-18" x2="-10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="0" y1="-18" x2="10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="-10" y1="-28" x2="-16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="10" y1="-28" x2="16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(1950, 450)">
+      <rect x="-2" y="-18" width="4" height="18" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-18" x2="-10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="0" y1="-18" x2="10" y2="-28" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="14" y2="-34" stroke="#3a2a1a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="-10" y1="-28" x2="-16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="10" y1="-28" x2="16" y2="-36" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-24" x2="-8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+      <line x1="5" y1="-24" x2="8" y2="-30" stroke="#3a2a1a" stroke-width="0.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(2250, 460)">
+      <rect x="-2" y="-15" width="4" height="15" fill="#3a2a1a" rx="1"/>
+      <line x1="0" y1="-15" x2="-9" y2="-24" stroke="#3a2a1a" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="0" y1="-15" x2="9" y2="-24" stroke="#3a2a1a" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="-5" y1="-21" x2="-12" y2="-28" stroke="#3a2a1a" stroke-width="1" stroke-linecap="round"/>
+      <line x1="5" y1="-21" x2="12" y2="-28" stroke="#3a2a1a" stroke-width="1" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g clip-path="url(#hillClip)">
+    <ellipse cx="400" cy="450" rx="80" ry="12" fill="#e8ecff"/>
+    <ellipse cx="1600" cy="458" rx="45" ry="10" fill="#e8ecff"/>
+    <ellipse cx="550" cy="455" rx="30" ry="8" fill="#e8ecff"/>
+    <ellipse cx="1250" cy="480" rx="35" ry="8" fill="#e8ecff"/>
+    <ellipse cx="1950" cy="445" rx="30" ry="7" fill="#e8ecff"/>
   </g>
 </svg>
