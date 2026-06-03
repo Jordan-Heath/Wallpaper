@@ -19,7 +19,7 @@
     <ellipse class="mtn-snow" cx="1950" cy="230" rx="85" ry="40"/>
     <polygon class="mtn-snow" points="450,200 390,250 410,260 450,245 480,260 500,250"/>
     <polygon class="mtn-snow" points="950,210 890,260 910,270 950,255 980,270 1000,260"/>
-    <polygon class="mtn-snow" points="1450,220 1400,270 1420,280 1450,265 1480,280 1500,270"/>
+    <polygon class="mtn-snow" points="1450,220 1400,270 1420,280 1450,265 1480,280 1550,270"/>
     <polygon class="mtn-snow" points="450,200 390,250 410,260 450,200"/>
     <polygon class="mtn-snow" points="950,210 890,260 910,270 950,210"/>
     <polygon class="mtn-snow" points="1450,220 1400,270 1420,280 1450,220"/>
