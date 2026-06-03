@@ -114,9 +114,9 @@ export const CONFIG = {
   // a coloured overlay over the whole scene)
   // ====================================================================
   cloudCover: {
-    skyGrayTop: [130, 130, 130],
-    skyGrayBottom: [190, 190, 190],
-    sunFadeFactor: 0.85,
+    skyGrayTop: [60, 60, 70],
+    skyGrayBottom: [120, 120, 130],
+    sunFadeFactor: 0.8,
     moonFadeFactor: 0.3,
   },
 
@@ -205,7 +205,7 @@ export const CONFIG = {
   // BIRDS  (summer)
   // ====================================================================
   birds: {
-    count: 6,
+    count: 8,
     yBaseMin: 30,
     yLimit: 0.45,
     speedBase: 0.2,
@@ -216,9 +216,9 @@ export const CONFIG = {
     wingFreqRange: 0.02,
     wingAmpBase: 0.3,
     wingAmpRange: 0.3,
-    opacityBase: 0.4,
+    opacityBase: 0.6,
     opacityRange: 0.3,
-    color: [30, 25, 40],
+    color: [80, 80, 80],
     lineWidth: 1.5,
     zIndex: 5,
   },
@@ -227,11 +227,11 @@ export const CONFIG = {
   // WINTER WIND  (transparent sine waves)
   // ====================================================================
   winterWind: {
-    count: 2,
-    length: 300,
+    count: 4,
+    length: 150,
     linesPerSet: 3,
-    lineSpacingMin: 15,
-    lineSpacingRange: 10,
+    lineSpacingMin: 20,
+    lineSpacingRange: 20,
     ampMin: 10,
     ampRange: 20,
     freqMin: 0.015,
@@ -240,9 +240,9 @@ export const CONFIG = {
     driftAmpFactor: 0.02,
     driftSpeedMin: 0.004,
     driftSpeedRange: 0.002,
-    opacityMin: 0.12,
-    opacityRange: 0.15,
-    widthMin: 2,
+    opacityMin: 0.01,
+    opacityRange: 0.10,
+    widthMin: 6,
     widthRange: 4,
     color: [200, 220, 255],
     zIndex: 5,
