@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 110">
   <defs>
+    <style>
+      .cloud-base { fill: var(--cloud-base, #ccc); }
+      .cloud-hl  { fill: var(--cloud-highlight, #fff); }
+    </style>
     <clipPath id="cloudClip">
       <ellipse cx="45" cy="72" rx="38" ry="28"/>
       <ellipse cx="95" cy="60" rx="48" ry="34"/>
@@ -10,7 +14,7 @@
     </clipPath>
   </defs>
 
-  <g fill="#ccc">
+  <g class="cloud-base">
     <ellipse cx="45" cy="72" rx="38" ry="28"/>
     <ellipse cx="95" cy="60" rx="48" ry="34"/>
     <ellipse cx="145" cy="68" rx="40" ry="28"/>
@@ -20,7 +24,7 @@
   </g>
 
   <g clip-path="url(#cloudClip)">
-    <g transform="translate(-20, -20)" fill="#fff" opacity="0.4">
+    <g class="cloud-hl" transform="translate(-20, -20)" opacity="0.4">
       <ellipse cx="45" cy="72" rx="38" ry="28"/>
       <ellipse cx="95" cy="60" rx="48" ry="34"/>
       <ellipse cx="145" cy="68" rx="40" ry="28"/>
